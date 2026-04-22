@@ -25,4 +25,15 @@ class Post extends Model
         return \->where('status', 'published')
                      ->whereNotNull('published_at');
     }
+
+// Add this relationship to Post model
+public function comments()
+{
+    return $this->hasMany(Comment::class)->where('is_approved', true);
+}
+
+public function allComments()
+{
+    return $this->hasMany(Comment::class);
+}
 }
