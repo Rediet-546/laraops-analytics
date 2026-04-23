@@ -2,21 +2,16 @@
 
 namespace App\Services;
 
+use App\Jobs\ProcessAnalyticsJob;
 use App\Models\Analytics;
 use Illuminate\Support\Facades\Cache;
 
 class AnalyticsService
 {
-    public function track(string \, array \ = [])
+    public function track(string $metric, array $metadata = [])
     {
-        Analytics::create([
-            'metric' => \,
-            'date' => now()->toDateString(),
-            'metadata' => \,
-            'value' => 1
-        ]);
-
-        Cache::forget('analytics_summary');
+        // Dispatch job to queue instead of direct insert
+        ProcessAnalyticsJob::dispatch($metric, $metadata);
     }
 
     public function getSummary()
@@ -29,5 +24,10 @@ class AnalyticsService
                                          ->sum('value'),
             ];
         });
+    }
+
+    public function clearCache(): void
+    {
+        Cache::forget('analytics_summary');
     }
 }
