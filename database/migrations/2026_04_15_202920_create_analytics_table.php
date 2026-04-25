@@ -8,13 +8,13 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('analytics', function (Blueprint ) {
-            ->id();
-            ->string('metric');
-            ->integer('value')->default(1);
-            ->date('date');
-            ->json('metadata')->nullable();
-            ->timestamps();
+        Schema::create('analytics', function (Blueprint $table) {
+            $table->id();
+            $table->string('metric');
+            $table->integer('value')->default(1);
+            $table->date('date');
+            $table->json('metadata')->nullable();
+            $table->timestamps();
         });
     }
 
