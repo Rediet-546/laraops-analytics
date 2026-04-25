@@ -9,24 +9,15 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected \ = ['post_id', 'user_id', 'content', 'is_approved'];
-
-    protected \ = [
-        'is_approved' => 'boolean',
-    ];
+    protected $fillable = ['content', 'post_id', 'user_id'];
 
     public function post()
     {
-        return \->belongsTo(Post::class);
+        return $this->belongsTo(Post::class);
     }
 
     public function user()
     {
-        return \->belongsTo(User::class);
-    }
-
-    public function scopeApproved(\)
-    {
-        return \->where('is_approved', true);
+        return $this->belongsTo(User::class);
     }
 }

@@ -33,6 +33,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    // Add this relationship inside the User class
+public function comments()
+{
+    return $this->hasMany(Comment::class);
+}
 
     /**
      * Get the attributes that should be cast.

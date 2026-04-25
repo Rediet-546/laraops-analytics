@@ -9,31 +9,25 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected  = ['title', 'content', 'slug', 'status', 'published_at', 'user_id'];
+    protected $fillable = ['title', 'content', 'slug', 'status', 'published_at', 'user_id'];
 
-    protected  = [
+    protected $casts = [
         'published_at' => 'datetime',
     ];
 
     public function user()
     {
-        return \->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function scopePublished(\)
+    public function scopePublished($query)
     {
-        return \->where('status', 'published')
+        return $query->where('status', 'published')
                      ->whereNotNull('published_at');
     }
 
-// Add this relationship to Post model
-public function comments()
-{
-    return $this->hasMany(Comment::class)->where('is_approved', true);
-}
-
-public function allComments()
-{
-    return $this->hasMany(Comment::class);
-}
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->latest();
+    }
 }

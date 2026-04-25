@@ -10,7 +10,7 @@ class AnalyticsService
 {
     public function track(string $metric, array $metadata = [])
     {
-        // Dispatch job to queue instead of direct insert
+        // DISPATCH to queue instead of direct insert
         ProcessAnalyticsJob::dispatch($metric, $metadata);
     }
 
